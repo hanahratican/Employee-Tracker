@@ -2,15 +2,15 @@ const express = require('express');
 
 const mysql = require('mysql2');
 
-const cTable = require('console.table');
-const { default: inquirer } = require('inquirer');
+// const cTable = require('console.table');
+// const { default: inquirer } = require('inquirer');
 
 const connection = mysql.createConnection({
     host: 'localhost',
     user: 'root',
     database: 'test'
   });
-
+connection();
 
   const promptUser = () => {
     inquirer.prompt ([
@@ -28,3 +28,4 @@ const connection = mysql.createConnection({
         },
     ])
   }
+  promptUser();
