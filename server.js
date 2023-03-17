@@ -8,11 +8,12 @@ const inquirer = require('inquirer');
 // const { prompt } = require("inquirer");
 //which one to use?
 
-const db = require("./db");
+// const db = require("./db");
 
 const db = mysql.createConnection(
   { 
-    host: 'localhost',
+    host: '127.0.0.1',
+    // or use localhost?
     user: 'root',
     password: '',
     database: 'employeetracker_db'
@@ -36,19 +37,23 @@ async function viewAllRoles() {
   promptUser();
 };
 
+//code that the tutor helped with below
+
 //use function on line 40 or line 44
-async function viewAllEmployees() {
-  const results = await db.promise().query('SELECT employee.id, employee.first_name, employee.last_name, role.title, department.name AS department, role.salary, CONCAT(manager.first_name, " ", manager.last_name) AS manager FROM employee LEFT JOIN role ON employee.role_id = role.id LEFT JOIN department ON role.department_id = department.id LEFT JOIN manager ON manager.id = employee.manager_id');
-  console.table(results[0]);
-};
 // async function viewAllEmployees() {
-//   const results = await db.promise().query('SELECT * FROM employee');
+//   const results = await db.promise().query('SELECT employee.id, employee.first_name, employee.last_name, role.title, department.name AS department, role.salary, CONCAT(manager.first_name, " ", manager.last_name) AS manager FROM employee LEFT JOIN role ON employee.role_id = role.id LEFT JOIN department ON role.department_id = department.id LEFT JOIN manager ON manager.id = employee.manager_id');
 //   console.table(results[0]);
 // };
 
+async function viewAllEmployees() {
+  const results = await db.promise().query('SELECT * FROM employee');
+  console.table(results[0]);
+  promptUser();
+};
+
 async function addDepartment() {
   const questions = await inquirer.prompt([{
-    type: input,
+    type: 'input',
     message: 'What do you want the name of your department to be?',
     name: 'addDepartment'
   }]) 
@@ -61,12 +66,12 @@ async function addDepartment() {
 
 async function addRole() {
   const questions = await inquirer.prompt([{
-    type: input,
+    type: 'input',
     message: 'What do you want the name of your role to be?',
-    name: 'addRole'
+    name: 'title'
   }])
   if(questions) {
-    const results = db.promise().query('INSERT INTO role (title) VALUES (?)', questions.addRole);
+    const results = db.promise().query('INSERT INTO role(title) VALUES (?)', questions.addRole);
     console.table(results);
   }
   promptUser();
@@ -74,7 +79,7 @@ async function addRole() {
 
 async function addEmployee() {
   const questions = await inquirer.prompt([{
-    type: input,
+    type: 'input',
     message: 'What is the name of the new employee?',
     name: 'addEmployee'
   }])
@@ -89,8 +94,8 @@ async function addEmployee() {
   const promptUser = () => {
     inquirer.prompt ([
         {
-            type: list,
-            name: start,
+            type: 'list',
+            name: 'start',
             message: 'Choose what you would like to do:',
             choices: ['View all departments', 
                 'View all roles', 
@@ -124,6 +129,9 @@ async function addEmployee() {
     })
   };
 
+  promptUser();
+
+//code that the tutor gave below
 
 // .then(res => {
 //   let choice = res.choice;
