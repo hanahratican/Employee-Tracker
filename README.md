@@ -9,3 +9,6 @@ Clone this repository by going to the repository's main page. On the right side,
 ## Example
 Here is a walkthrough video on how to get started: https://drive.google.com/file/d/1XRZwu-i92m637s08F61xbzrmA8sRUGmA/view
 
+### Video Example
+Here is a link to a video that shows you how to use the database!
+https://drive.google.com/file/d/1XRZwu-i92m637s08F61xbzrmA8sRUGmA/view
